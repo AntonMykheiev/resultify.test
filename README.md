@@ -1,2 +1,2 @@
 ## How to install
-To install all dependences use: `composer install`
+To install all dependencies use: `composer install`
