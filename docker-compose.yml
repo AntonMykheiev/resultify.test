@@ -6,7 +6,7 @@ services:
 
     mysql:
       image: mysql:8.0
-      container_name: restify-test-mysql
+      container_name: resultify-test-mysql
       working_dir: /application
       volumes:
         - .:/application
@@ -19,8 +19,8 @@ services:
         - "8082:3306"
 
     webserver:
-      image: nginx:alpine
-      container_name: restify-test-webserver
+      image: nginx:latest
+      container_name: resultify-test-webserver
       working_dir: /application
       volumes:
           - .:/application
@@ -30,7 +30,7 @@ services:
 
     php-fpm:
       build: phpdocker/php-fpm
-      container_name: restify-test-php-fpm
+      container_name: resultify-test-php-fpm
       working_dir: /application
       volumes:
         - .:/application

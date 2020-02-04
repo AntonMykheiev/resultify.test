@@ -1,4 +1,5 @@
 FROM phpdockerio/php74-fpm:latest
+# FROM php:7.4-fpm
 WORKDIR "/application"
 
 # Fix debconf warnings upon build
@@ -14,9 +15,9 @@ RUN apt-get update \
     && apt-get -y install git \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-# Download Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git zip
 
-# COPY ./composer.json /application/composer.json
+RUN curl --silent --show-error https://getcomposer.org/installer | php
 
-RUN composer install
+CMD bash -c "composer install"
