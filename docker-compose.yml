@@ -7,9 +7,6 @@ services:
     mysql:
       image: mysql:8.0
       container_name: resultify-test-mysql
-      working_dir: /application
-      volumes:
-        - .:/application
       environment:
         - MYSQL_ROOT_PASSWORD=root
         - MYSQL_DATABASE=restify
@@ -17,21 +14,34 @@ services:
         - MYSQL_PASSWORD=restify
       ports:
         - "8082:3306"
+      networks:
+        testnet:
+          aliases:
+            - mysql
 
     webserver:
       image: nginx:latest
       container_name: resultify-test-webserver
       working_dir: /application
       volumes:
-          - .:/application
+          - ./public:/application/public
           - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       ports:
        - "8080:80"
+      networks:
+        testnet:
+          aliases:
+            - nginx
 
     php-fpm:
-      build: phpdocker/php-fpm
+#      build: phpdocker/php-fpm
+      image: test:latest
       container_name: resultify-test-php-fpm
       working_dir: /application
-      volumes:
-        - .:/application
-        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
+      networks:
+        testnet:
+          aliases:
+            - php-fpm
+
+networks:
+  testnet:

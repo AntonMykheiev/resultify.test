@@ -17,10 +17,10 @@ $config = Setup::createAnnotationMetadataConfiguration(array("./src"), $isDevMod
 
 // database configuration parameters
 $conn = array(
-    'dbname' => 'resultify',
+    'dbname' => 'restify',
     'user' => 'root',
     'password' => 'root',
-    'host' => 'localhost',
+    'host' => 'mysql',
     'driver' => 'pdo_mysql',
     //'path' => __DIR__ . '/db.mysql',
 );
